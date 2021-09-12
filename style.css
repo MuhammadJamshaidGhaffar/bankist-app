@@ -29,7 +29,8 @@ header p {
   margin: 0px 0.5rem;
 }
 
-.login-btn {
+.login-btn,
+.btn {
   padding: 1rem 2rem;
   background-color: black;
   border-radius: 2rem;
@@ -98,6 +99,10 @@ header p {
 }
 .action-div {
   height: 30%;
+  font-size: 16px;
+  /* text-align: center; */
+  padding: 0px 28px;
+  box-sizing: border-box;
   /* border: 3px solid green; */
 }
 .transfer-div {
@@ -137,4 +142,40 @@ header p {
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   border-radius: 1.5rem;
+}
+
+.action-div .text {
+  font-weight: 600;
+}
+
+.action-input-wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.input-wrapper {
+  width: 35%;
+  text-align: center;
+}
+.action-input {
+  width: 100%;
+  border-radius: 1rem;
+  height: 27px;
+  outline: none;
+  border: none;
+  opacity: 0.5;
+}
+.input-wrapper .desc {
+  margin: 6px 0;
+}
+
+#btn {
+  font-size: 3rem;
+  padding: 0 1.5rem;
+  border-radius: 1.5rem;
+  height: 30px;
+}
+#transfer-amount {
+  opacity: 0.7;
 }
