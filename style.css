@@ -6,6 +6,7 @@ html {
 body {
   background-color: rgb(254 240 240);
   font-family: sans-serif;
+  color: #3a3a3a;
 }
 
 header {
@@ -41,4 +42,99 @@ header p {
 
 .login-btn:active {
   transform: translateY(5px);
+}
+
+.container {
+  /* border: 2px solid red; */
+  width: 90rem;
+  margin: auto;
+  height: 44rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.balance-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.balance-text .text {
+  font-size: 2rem;
+  margin: 0px;
+}
+.balance-text .date {
+  font-size: 1.2rem;
+  margin: 1px 0px;
+}
+
+.balance-div .balance-value {
+  font-size: 40px;
+  margin: 0px;
+  color: green;
+}
+.transaction-div {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+}
+.left-div,
+.right-div {
+  /* border: 2px solid indigo; */
+  display: inline-block;
+  /* width: 49%; */
+}
+.left-div {
+  width: 58%;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 2px 2px 6px -3px black;
+}
+/* ############## right div ############# */
+.right-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 40%;
+}
+.action-div {
+  height: 30%;
+  /* border: 3px solid green; */
+}
+.transfer-div {
+  background-image: radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(255, 209, 67, 1) 0%,
+    rgba(255, 145, 83, 1) 90%
+  );
+  border-radius: 1.5rem;
+}
+.request-div {
+  background: #dce35b; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to left,
+    #45b649,
+    #dce35b
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    #45b649,
+    #dce35b
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  border-radius: 1.5rem;
+}
+.close-div {
+  background: #f953c6; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to left,
+    #b91d73,
+    #f953c6
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    #b91d73,
+    #f953c6
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  border-radius: 1.5rem;
 }
