@@ -262,3 +262,28 @@ header {
   border-radius: 7rem;
   display: none;
 }
+
+.alerts {
+  background-color: rgb(255, 255, 255);
+  z-index: 2;
+  width: 40vw;
+  height: 40rem;
+  position: absolute;
+  font-size: 3rem;
+  text-align: center;
+  padding-top: 5rem;
+  box-sizing: border-box;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+}
+.alert-background {
+  display: block;
+  content: "";
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(0 0 0 / 68%);
+  z-index: 1;
+  position: absolute;
+  top: 0;
+}

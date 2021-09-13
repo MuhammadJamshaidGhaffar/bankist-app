@@ -140,6 +140,8 @@ function transferCash() {
         console.log(`cannot send money to yourself`);
         return;
       }
+      // ############ pending ##############
+      // display an error
       if (Number(transferAmountElm.value) < 0) {
         console.log("Invalid Number");
         return;
@@ -156,11 +158,18 @@ function transferCash() {
   console.log("Account not found");
 }
 function requestCash() {
+  // ############ pending #############
   console.log("Cash Requested");
 }
 
 function closeAccount() {
-  console.log("Account closed");
+  if (closeUserElm.value == accounts[userId].user) {
+    if (closePinElm.value == accounts[userId].pin) {
+      accounts.splice(userId, 1);
+    }
+  } else {
+    console.log("wrong user");
+  }
 }
 
 // ################ Event Listeners #################
