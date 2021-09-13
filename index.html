@@ -12,13 +12,16 @@
   </head>
   <body>
     <header>
-      <p>LogIn to get started</p>
+      <p class="welcome-text">LogIn to get started</p>
       <div class="credentials">
         <input type="text" name="" id="user-name" placeholder="User" />
         <input type="password" name="" id="pin" placeholder="Pin" />
         <button class="login-btn">Login</button>
       </div>
     </header>
+    <div class="error">
+      <p>Incorrect Password</p>
+    </div>
     <div class="container">
       <div class="balance-div">
         <div class="balance-text">
@@ -29,7 +32,7 @@
       </div>
       <div class="transaction-div">
         <div class="left-div">
-          <div class="history-div">
+          <!-- <div class="history-div">
             <p class="type type-deposit">DEPOSIT</p>
             <p class="date">3 days ago</p>
             <p class="amount">$400</p>
@@ -38,7 +41,7 @@
             <p class="type type-withdraw">WITHDRAW</p>
             <p class="date">3 days ago</p>
             <p class="amount">$400</p>
-          </div>
+          </div> -->
         </div>
         <div class="right-div">
           <div class="transfer-div action-div">
@@ -59,6 +62,7 @@
                   name=""
                   id="transfer-amount"
                   class="action-input"
+                  min="0"
                 />
                 <p class="desc">Amount</p>
               </div>
@@ -76,6 +80,7 @@
                   name=""
                   id="loan-amount"
                   class="action-input"
+                  min="0"
                 />
                 <p class="desc">Amount</p>
               </div>
@@ -91,16 +96,16 @@
                 <input
                   type="text"
                   name=""
-                  id="confirm-user"
+                  id="close-confirm-user"
                   class="action-input"
                 />
                 <p class="desc">Confirm User</p>
               </div>
               <div class="input-wrapper">
                 <input
-                  type="number"
+                  type="password"
                   name=""
-                  id="confirm-pin"
+                  id="close-confirm-pin"
                   class="action-input"
                 />
                 <p class="desc">Confirm Pin</p>
