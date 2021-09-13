@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <title>Bankist App</title>
+    <script
+      src="https://kit.fontawesome.com/d8dd4cb323.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <header>
@@ -21,10 +25,21 @@
           <p class="text">Current Balance</p>
           <p class="date">As of 31/1/2021, 18:37</p>
         </div>
-        <p class="balance-value">25,000$</p>
+        <p class="balance-value">$25,000</p>
       </div>
       <div class="transaction-div">
-        <div class="left-div"></div>
+        <div class="left-div">
+          <div class="history-div">
+            <p class="type type-deposit">DEPOSIT</p>
+            <p class="date">3 days ago</p>
+            <p class="amount">$400</p>
+          </div>
+          <div class="history-div">
+            <p class="type type-withdraw">WITHDRAW</p>
+            <p class="date">3 days ago</p>
+            <p class="amount">$400</p>
+          </div>
+        </div>
         <div class="right-div">
           <div class="transfer-div action-div">
             <p class="text">Transfer money</p>
@@ -47,11 +62,54 @@
                 />
                 <p class="desc">Amount</p>
               </div>
-              <button class="btn" id="btn">&rarr;</button>
+              <button class="btn" id="transfer-btn">
+                <i class="fas fa-long-arrow-alt-right fa-2x"></i>
+              </button>
             </div>
           </div>
-          <div class="request-div action-div"></div>
-          <div class="close-div action-div"></div>
+          <div class="request-div action-div">
+            <p class="text">Request Loan</p>
+            <div class="action-input-wrapper">
+              <div class="input-wrapper">
+                <input
+                  type="number"
+                  name=""
+                  id="loan-amount"
+                  class="action-input"
+                />
+                <p class="desc">Amount</p>
+              </div>
+              <button class="btn" id="request-btn">
+                <i class="fas fa-long-arrow-alt-right fa-2x"></i>
+              </button>
+            </div>
+          </div>
+          <div class="close-div action-div">
+            <p class="text">Close Account</p>
+            <div class="action-input-wrapper">
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  name=""
+                  id="confirm-user"
+                  class="action-input"
+                />
+                <p class="desc">Confirm User</p>
+              </div>
+              <div class="input-wrapper">
+                <input
+                  type="number"
+                  name=""
+                  id="confirm-pin"
+                  class="action-input"
+                />
+                <p class="desc">Confirm Pin</p>
+              </div>
+              <button class="btn" id="close-btn">
+                <i class="fas fa-long-arrow-alt-right fa-2x"></i>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <footer class="footer"></footer>
