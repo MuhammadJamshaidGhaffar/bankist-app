@@ -8,6 +8,10 @@ const balanceElm = document.querySelector(".balance-value");
 const historyContainer = document.querySelector(".left-div");
 const errorElm = document.querySelector(".error");
 
+const alertWrapper = document.querySelector(".alert-wrapper");
+const alertTxtElm = document.querySelector(".alert-text");
+const alertBackg = document.querySelector(".alert-background");
+
 const userElm = document.querySelector("#user-name");
 const pinElm = document.querySelector("#pin");
 const transferUserElm = document.querySelector("#transfer-user");
@@ -17,7 +21,7 @@ const closeUserElm = document.querySelector("#close-confirm-user");
 const closePinElm = document.querySelector("#close-confirm-pin");
 
 let accounts = [];
-let userId = -1;
+let userId = undefined;
 // #################### CLASSES ####################
 class Transaction {
   constructor(type, amount) {
@@ -35,6 +39,21 @@ class Account {
     this.balance = balance;
     this.transacHistory = [];
     this.debt = debt;
+    // ##### making random transaction #######
+    for (let i = 0; i < getRndInteger(5, 20); i++) {
+      let transacType = "";
+      if (getRndInteger(0, 1) == 0) {
+        transacType = "deposit";
+      } else {
+        transacType = "withdraw";
+      }
+      this.makeTransHist(
+        new Transaction(
+          transacType,
+          Math.floor(getRndInteger(10, 10000) / 10) * 10
+        )
+      );
+    }
     this.makeTransHist(new Transaction("deposit", 200));
   }
 
@@ -46,11 +65,9 @@ class Account {
   }
   makeTransac(transac) {
     if (transac.type == "withdraw") {
-      if (transac.amount <= this.balance) {
-        this.balance -= transac.amount;
-        this.makeAndDisplayTransactionHistory(transac);
-        this.displayData();
-      }
+      this.balance -= transac.amount;
+      this.makeAndDisplayTransactionHistory(transac);
+      this.displayData();
     } else if (transac.type == "deposit") {
       this.balance += transac.amount;
       this.makeTransHist(transac);
@@ -107,6 +124,16 @@ function clearContainer() {
   balanceElm.textContent = `$0`;
   historyContainer.innerHTML = "";
 }
+function closeAlertBox() {
+  alertWrapper.style.display = "none";
+}
+function displayAlertBox(message) {
+  alertWrapper.style.display = "block";
+  alertTxtElm.innerHTML = message;
+}
+function getRndInteger(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 // ################# Events Functions ###################
 function login() {
   clearContainer();
@@ -128,47 +155,50 @@ function login() {
   displayError("account");
 }
 
+function logout() {
+  clearContainer();
+  hideContainer();
+  hideError();
+  userId = undefined;
+  displayAlertBox("You are logged out");
+}
+
 function transferCash() {
-  let transferId = -1;
+  let transferId = undefined;
   for (let i = 0; i < accounts.length; i++) {
     if (transferUserElm.value === accounts[i].user) {
-      console.log(
-        `Account User :${accounts[i].user} and its current Balance is ${accounts[i].balance}`
-      );
       transferId = i;
       if (transferId == userId) {
-        console.log(`cannot send money to yourself`);
+        displayAlertBox("Cannot Send money to yourself");
         return;
       }
-      // ############ pending ##############
-      // display an error
-      if (Number(transferAmountElm.value) < 0) {
-        console.log("Invalid Number");
+      let amount = Math.abs(Number(transferAmountElm.value));
+      if (amount > accounts[userId].balance) {
+        displayAlertBox("InSufficient Balance");
         return;
       }
-      accounts[userId].makeTransac(
-        new Transaction("withdraw", Number(transferAmountElm.value))
-      );
-      accounts[transferId].makeTransac(
-        new Transaction("deposit", Number(transferAmountElm.value))
-      );
+      accounts[userId].makeTransac(new Transaction("withdraw", amount));
+      accounts[transferId].makeTransac(new Transaction("deposit", amount));
       return;
     }
   }
-  console.log("Account not found");
+  displayAlertBox("Account not found");
 }
 function requestCash() {
-  // ############ pending #############
-  console.log("Cash Requested");
+  displayAlertBox("This feature is not available yet");
 }
 
 function closeAccount() {
   if (closeUserElm.value == accounts[userId].user) {
     if (closePinElm.value == accounts[userId].pin) {
       accounts.splice(userId, 1);
+      logout();
+      displayAlertBox("Your Account has been Deleted");
+    } else {
+      displayAlertBox("Wrong Pin");
     }
   } else {
-    console.log("wrong user");
+    displayAlertBox("Wrong User");
   }
 }
 
@@ -183,6 +213,8 @@ function closeAccount() {
   transferBtn.addEventListener("click", transferCash);
   requestBtn.addEventListener("click", requestCash);
   closeBtn.addEventListener("click", closeAccount);
+
+  alertBackg.addEventListener("click", closeAlertBox);
 }
 // ###################################################
 // ################## Main Program Start #############
@@ -191,12 +223,14 @@ function main() {
   clearContainer();
   // hideContainer();
   //---------- Creating Accounts -------------------------
-  accounts.push(new Account("jamshaid", "123", 2000, 0));
-  accounts.push(new Account("jawad", "123", 1000, 0));
-  accounts.push(new Account("junaid", "123", 500, 0));
-  accounts.push(new Account("hamza", "123", 200, 0));
-  accounts.push(new Account("ali", "123", 100, 0));
+  accounts.push(new Account("jamshaid", "123", getRndInteger(100, 10000), 0));
+  accounts.push(new Account("jawad", "123", getRndInteger(100, 10000), 0));
+  accounts.push(new Account("junaid", "123", getRndInteger(100, 10000), 0));
+  accounts.push(new Account("hamza", "123", getRndInteger(100, 10000), 0));
+  accounts.push(new Account("ali", "123", getRndInteger(100, 10000), 0));
+
+  userElm.value = "jamshaid";
+  pinElm.value = "123";
 }
 
 main();
-console.log(accounts[1].balance + 100);
