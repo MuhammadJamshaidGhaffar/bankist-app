@@ -1,10 +1,10 @@
 # bankist-app
 A Simple Bank Application made in javascript
 
-#### **Features:**
-**-**Accounts System
-**-**Transfer cash
-**-**Close Account
+##  **Features:**
+-  Accounts System
+- Transfer cash
+- Close Account
 ![pic 1](https://user-images.githubusercontent.com/75721211/133221991-c1c7c9d4-4ce4-4238-9d1c-44ff7edb1187.PNG)
 #### **Current Accounts:**
 |  # |  User | Pin  |
