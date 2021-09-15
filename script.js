@@ -29,6 +29,7 @@ let accounts = [];
 let userId = undefined;
 
 let sorted = false;
+let timerIntervalObj = undefined;
 // #################### CLASSES ####################
 class Transaction {
   constructor(type, amount) {
@@ -196,6 +197,23 @@ function login() {
         accounts[userId].displayData();
         sorted = false;
         accounts[userId].displayAllTransacHistory(sorted);
+        //--------- resetting timer ---------------
+        if (timerIntervalObj != undefined) clearInterval(timerIntervalObj);
+        let timer = 480; //8 min = 480s
+        timerElm.textContent = `You will be logged out in ${Math.floor(
+          timer / 60
+        )}:${timer % 60}`;
+        timerIntervalObj = setInterval(() => {
+          if (timer == 0) {
+            clearInterval(timerIntervalObj);
+            logout();
+            return;
+          }
+          timer--;
+          timerElm.textContent = `You will be logged out in ${Math.floor(
+            timer / 60
+          )}:${timer % 60}`;
+        }, 1000);
       } else {
         displayError("pin");
       }
