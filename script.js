@@ -100,12 +100,38 @@ class Account {
         if (transac.type == "deposit") createTransElement(transac);
       }
     }
+    this.calcTotalDeposit();
+    this.calcTotalWithdraw();
   }
 
   makeAndDisplayTransactionHistory(transac) {
     this.makeTransHist(transac);
     if (sorted) this.displayAllTransacHistory(sorted);
-    else createTransElement(transac);
+    else {
+      createTransElement(transac);
+      this.calcTotalDeposit();
+      this.calcTotalWithdraw();
+    }
+  }
+  calcTotalDeposit() {
+    totalDepositElm.textContent = this.transacHistory.reduce(
+      (acc, currTransac) => {
+        if (currTransac.type == "deposit")
+          return acc + Number(currTransac.amount);
+        else return acc;
+      },
+      0
+    );
+  }
+  calcTotalWithdraw() {
+    totalWithdrawElm.textContent = this.transacHistory.reduce(
+      (acc, currTransac) => {
+        if (currTransac.type == "withdraw")
+          return acc + Number(currTransac.amount);
+        else return acc;
+      },
+      0
+    );
   }
 }
 
@@ -156,6 +182,7 @@ function displayAlertBox(message) {
 function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
 // ################# Events Functions ###################
 function login() {
   clearContainer();
