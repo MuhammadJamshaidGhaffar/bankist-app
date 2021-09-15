@@ -10,7 +10,6 @@ const errorElm = document.querySelector(".error");
 
 const alertWrapper = document.querySelector(".alert-wrapper");
 const alertTxtElm = document.querySelector(".alert-text");
-const alertBackg = document.querySelector(".alert-background");
 
 const userElm = document.querySelector("#user-name");
 const pinElm = document.querySelector("#pin");
@@ -20,8 +19,16 @@ const loanAmountElm = document.querySelector("#loan-amount");
 const closeUserElm = document.querySelector("#close-confirm-user");
 const closePinElm = document.querySelector("#close-confirm-pin");
 
+// ---------------footer elements ----------------
+const totalDepositElm = document.querySelector(".total-deposit .value");
+const totalWithdrawElm = document.querySelector(".total-withdraw .value");
+const sortSymbolElm = document.querySelector(".sort .symbol");
+const timerElm = document.querySelector(".timer");
+
 let accounts = [];
 let userId = undefined;
+
+let sorted = false;
 // #################### CLASSES ####################
 class Transaction {
   constructor(type, amount) {
@@ -76,26 +83,41 @@ class Account {
   makeTransHist(trans) {
     this.transacHistory.push(trans);
   }
-  displayAllTransacHistory() {
-    for (let transac of this.transacHistory) {
-      createTransElement(transac);
+  displayAllTransacHistory(sort) {
+    historyContainer.innerHTML = "";
+    sort
+      ? (sortSymbolElm.innerHTML = "&UpArrow;")
+      : (sortSymbolElm.innerHTML = "&DownArrow;");
+    if (!sort) {
+      for (let transac of this.transacHistory) {
+        createTransElement(transac);
+      }
+    } else if (sort) {
+      for (let transac of this.transacHistory) {
+        if (transac.type == "withdraw") createTransElement(transac);
+      }
+      for (let transac of this.transacHistory) {
+        if (transac.type == "deposit") createTransElement(transac);
+      }
     }
   }
 
   makeAndDisplayTransactionHistory(transac) {
     this.makeTransHist(transac);
-    createTransElement(transac);
+    if (sorted) this.displayAllTransacHistory(sorted);
+    else createTransElement(transac);
   }
 }
 
 // #################### functions ####################
 function createTransElement(transac) {
   console.log(transac);
-  historyContainer.innerHTML += `<div class="history-div">
+  historyContainer.innerHTML =
+    `<div class="history-div">
     <p class="type type-${transac.type.toLowerCase()}">${transac.type.toUpperCase()}</p>
     <p class="date">${transac.date}</p>
     <p class="amount">$${transac.amount}</p>
-  </div>`;
+  </div>` + historyContainer.innerHTML;
 }
 function displayContainer() {
   containerElm.style.display = "flex";
@@ -145,7 +167,8 @@ function login() {
         userId = i;
         displayContainer();
         accounts[userId].displayData();
-        accounts[userId].displayAllTransacHistory();
+        sorted = false;
+        accounts[userId].displayAllTransacHistory(sorted);
       } else {
         displayError("pin");
       }
@@ -201,13 +224,20 @@ function closeAccount() {
     displayAlertBox("Wrong User");
   }
 }
+function sort() {
+  if (sorted) sorted = false;
+  else sorted = true;
+  accounts[userId].displayAllTransacHistory(sorted);
+}
 
 // ################ Event Listeners #################
 {
+  const alertBackg = document.querySelector(".alert-background");
   const loginBtn = document.querySelector(".login-btn");
   const transferBtn = document.querySelector("#transfer-btn");
   const requestBtn = document.querySelector("#request-btn");
   const closeBtn = document.querySelector("#close-btn");
+  const sortElm = document.querySelector(".sort");
 
   loginBtn.addEventListener("click", login);
   transferBtn.addEventListener("click", transferCash);
@@ -215,6 +245,7 @@ function closeAccount() {
   closeBtn.addEventListener("click", closeAccount);
 
   alertBackg.addEventListener("click", closeAlertBox);
+  sortElm.addEventListener("click", sort);
 }
 // ###################################################
 // ################## Main Program Start #############
